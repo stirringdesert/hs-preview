@@ -1,5 +1,5 @@
 (function () {
-  var D = {"included":[],"skipped":[{"number":29,"author":"stirringdesert","title":"About page: new photo, sticky on the right on desktop, top-right on phones"}]};
+  var D = {"included":[{"number":29,"author":"stirringdesert","title":"About page: new photo, sticky on the right on desktop, top-right on phones"},{"number":38,"author":"stirringdesert","title":"Preview tag in the top right corner"}],"skipped":[]};
   var n = D.included.length;
   var css = '#pv-tag{position:fixed;right:12px;bottom:12px;z-index:2147483646;font:12px/1.3 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#fff}'
     + '#pv-tag button{font:inherit;color:#000;background:#ffd84d;border:0;border-radius:999px;padding:6px 11px;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.35)}'
