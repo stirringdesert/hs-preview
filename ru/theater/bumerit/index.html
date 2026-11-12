@@ -1,14 +1,14 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow"><title>preview</title>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>превью</title>
 <style>html,body{margin:0;height:100%;background:#000;color:#f2f2f2;font:16px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 form{display:none;position:absolute;inset:0;margin:auto;width:min(280px,calc(100% - 32px));height:max-content}
 form.show{display:block}input,button{font:inherit;box-sizing:border-box;width:100%;padding:10px 12px;border-radius:8px;border:1px solid #333;background:#111;color:#fff;margin-top:8px}
 button{background:#f2f2f2;color:#000;border:0;cursor:pointer}.err{color:#ff8a8a;min-height:1.4em;font-size:14px}</style></head>
-<body><form id="f"><div>preview · password</div><input id="p" type="password" autocomplete="current-password" autofocus><button>open</button><div class="err" id="e"></div></form>
+<body><form id="f"><div>превью · пароль</div><input id="p" type="password" autocomplete="current-password" autofocus><button>открыть</button><div class="err" id="e"></div></form>
 <script>
 (function () {
-  var S = "XiCTJEr2ynqtOQPdGHmpmw==", IV = "w5qAIQVPm0KZRLjC", D = "d6nJKJlA7LFuSM+MxaSBL8ORl/cb7Z02B3JqygatH3yavbA1szZtHGjoos8f4vYgSL8rooSMYghuTVTesOUpfaVB34juXRUj/5YjREqYbsa1GlMkifck8eGm3WMFkx3Zh3cT5V8CoOJ5zVhwmYub+clN16oLMj0QRI1uZ3MeIbLzb/NdggLRjDHTtau+nnWmJkFghTg/qbX5kLS6APl/QYHZ8968QbNcy42+ds57GisQ3p1mfqlpsLO05tPgryTpYILiFrC/hsd9cSHTDuCA4YR+J+r2w4GuXHm8ejxQ01Xiy1SFSPaaqg4v6PRR1jMgagBLE+QGb5GFgDw64tk586toRFJgRCQEEKHF+C1fKo+4bis7tCbDPAXUe/8wuw6F/fYNhy49V7XOZdJ5QaMXf3tf80MRIRwypAvraQZz8ZAdGYg9Zr8ccHIbm/LXa8fhrqh9eTBYScsOG1S2BRcSx2qU7x2BOoU2SiFMnOV42mBwO/MgzPmg7FNf1ewOCIy4zxb/SzZEX75B5+ALblPp9ptIgoEB8q/9XnisUFtiu7GRRPaeuXe2KqQqfYUIPgn+a5ouHN4zq+uSh95DTe6kjQOJl+Rz/0BaGOzv+/Fy0oGSyxpJpiCwx175s+5sONHxTNzO7lDzq7pxiDiVpXPq91n9UDJghWxBpa6rohImicnyCDSEqcB659P5D4O2g2Dsx8AGpI6piJgdTt/24+vb+XGp8qaTlVy3RFjA4BC0yOQgDQGum6NLK8NJ/U48ruTSAPmbFluVaSY4HJJW/TaYih+q4HCKQ0yIWqHtKqsSK+ss9Gt+9xL+mpcEZaKT6xqhxgN88EIIbdzti/wiXHqxAkwKrcttyG/3FjGncIpUMEIciy2aY8UtJ8P/ZbzweEiIFhAhJGTZa/1IW6g+/ePSr0b0FwDUml+iJ5v2uemed+U09EwtJZaZDMdsqYDEzc/117+UOeke9UegcFCoPrtAvIHYOdHeOfhBEIzLxhSunt69uAXUQdvmZ1M=", N = 150000;
+  var S = "MAmSmUEWR7J3ofbWCIARjA==", IV = "eqsdc0JwTXE5d+bU", D = "EDzVt8u5ZfJOLmOzakNY668OaSySw51iF317COsBb/JAtoFlZ/O/QMRq684Kc5/EIK5/ZoYLdDxMs+V28K9n7KpUzQb2fkjq4tkJ5Z2NuvbxlErvTrkENzh8+6BqR8kx34tvkFef2OxHB/pyaYDas5FRFtXWUFhaiSI/szkcSgZRxscsEUk02ahawqHkrO4gWcS2twJlzkhlntwfMvKYkYUc+NqAcfyYBo3cbQd3HvjZOqeqKxRDeDKwKfmDItQ1Z2y41CeNIxHRQtSdXxDOebVKKC3XGaZUkuZG92U9VUqKV+Xax8RYQVxl7lfXLMAYqCguRnY7xsw9dlUECIDKjxDUU9a9V3Vi5RONMEcMI29aCdM9WX/3kbWPwe1sIJBPNkfMz2cdb8QmTSwgMwlBB2UZtx0JhQnjdoht5oqE1QKWUzET/CMaZwnGq2yLnbgY4obYh/Vq/7FMuEBjy9xbtAaaRDCo2V7UPhqMYrGb7uIo8ggRX+7Tiuwn3/ieJQYPXDiV/czoUMMKYCj7e4w2jDyjYOfrqIsnp7jA4MUwTmK6g/OFa6Nk1vd+oFvQj5u5QPqFHT4FqLWP5xiDeBi8lFoerjMPgKCetF+eVmoR34YZAPZMzIYlZkoyxyF43QFL5CVM99PMAStrKl1+IKPKhyFMKg3mnZAe9S7iN55o1dRT8c0M24BwmPI2kJxWVvGqDwhD6XwJImkrLWO7rrRSAQHL04UkjtTAX/rVvsiXBmdqskBFQ3UHEy8+Qz0Oaeom1Ju6HxvkjeRbM2/iSoKXHZEbftEHnpAfXJ8Qggd3S4L1juADHiueY0gGDDnXAluSPbxb0spyoXqYYbwIXGSyye03A4krqnIe41tXxZFYFdYu7ytLzcrndcjrHUSHWwob/djkBsrRGFHd7gHadCLM4FdvGKK4NQFj1vp/h+4zeUWxsprbpj6sYbqp65iTL1wiudqysZNc/+qK8pyl0CGwSU5WHxMEtaiVgULrllOWZqxBFG3tLJ1Lo70=", N = 150000;
   function bytes(s) { return Uint8Array.from(atob(s), function (c) { return c.charCodeAt(0); }); }
   function open(pw) {
     var enc = new TextEncoder();
@@ -23,7 +23,7 @@ button{background:#f2f2f2;color:#000;border:0;cursor:pointer}.err{color:#ff8a8a;
   }
   var f = document.getElementById('f');
   function ask(msg) { document.getElementById('e').textContent = msg || ''; f.className = 'show'; document.getElementById('p').focus(); }
-  f.onsubmit = function (ev) { ev.preventDefault(); open(document.getElementById('p').value).catch(function () { ask('wrong password'); }); };
+  f.onsubmit = function (ev) { ev.preventDefault(); open(document.getElementById('p').value).catch(function () { ask('неверный пароль'); }); };
   var saved = null; try { saved = localStorage.getItem('preview-pw'); } catch (e) {}
   if (saved) open(saved).catch(function () { ask(); }); else ask();
 })();
