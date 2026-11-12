@@ -1,6 +1,6 @@
 (function () {
   var D = {"included":[{"number":29,"author":"stirringdesert","title":"About page: new photo, sticky on the right on desktop, top-right on phones","when":"2026-11-12T18:41:25Z"}],"skipped":[]};
-  var B = {"run":43284184699,"at":"2026-11-12T18:51:48.318Z"};
+  var B = {"run":43284289431,"at":"2026-11-12T18:52:29.344Z"};
   var RUNS = 'https://api.github.com/repos/stirringdesert/hs/actions/workflows/preview.yml/runs?per_page=1';
   var n = D.included.length;
   function plural(k) { var a = k % 10, b = k % 100; return a === 1 && b !== 11 ? 'изменение' : a >= 2 && a <= 4 && (b < 12 || b > 14) ? 'изменения' : 'изменений'; }
@@ -29,11 +29,17 @@
     + (n ? list(D.included) : '')
     + (D.skipped.length ? '<p class="pv-muted">Пока не показано (конфликтует с другим изменением, исправляется):</p>' + list(D.skipped) : '')
     + '<a href="' + esc(live) + '">открыть эту страницу на сайте &rarr;</a></div>'
-    + '<button type="button" aria-expanded="false"><span class="pv-dot"></span>превью' + (n ? ' · ' + n : '') + '</button>';
+    + '<button type="button" aria-expanded="false"><span class="pv-dot"></span><span class="pv-label"></span></button>';
   var tag = document.createElement('div'); tag.id = 'pv-tag'; tag.innerHTML = html;
   document.body.appendChild(tag);
-  var btn = tag.querySelector('button'), stateEl = tag.querySelector('#pv-state');
-  btn.addEventListener('click', function () { var o = tag.classList.toggle('open'); btn.setAttribute('aria-expanded', o); });
+  var btn = tag.querySelector('button'), stateEl = tag.querySelector('#pv-state'), labelEl = tag.querySelector('.pv-label');
+  // The button says what is happening: "превью · 2", "обновляется…" or "обновить страницу"
+  // (then a click reloads; otherwise it opens the list).
+  var LABEL = { busy: 'обновляется…', 'new': 'готово · обновить страницу' };
+  btn.addEventListener('click', function () {
+    if (tag.getAttribute('data-s') === 'new') { location.reload(); return; }
+    var o = tag.classList.toggle('open'); btn.setAttribute('aria-expanded', o);
+  });
 
   // Status: is a newer preview being built, or already built? Asks GitHub (public, no
   // login) for the latest preview run every 15 s while the tab is visible. Requests are
@@ -41,7 +47,7 @@
   // doesn't count toward GitHub's limit of 60 requests an hour; if the limit is hit
   // anyway, it waits a few minutes before asking again.
   var built = 'Эта версия собрана в ' + time(B.at) + '.';
-  function show(s, text) { tag.setAttribute('data-s', s); stateEl.innerHTML = text; }
+  function show(s, text) { tag.setAttribute('data-s', s); stateEl.innerHTML = text; labelEl.textContent = LABEL[s] || ('превью' + (n ? ' · ' + n : '')); }
   show('unknown', built);
   function check() {
     if (document.hidden) return;
