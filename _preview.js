@@ -1,6 +1,6 @@
 (function () {
-  var D = {"included":[{"number":29,"author":"stirringdesert","title":"About page: new photo, sticky on the right on desktop, top-right on phones","when":"2026-11-12T18:41:25Z"}],"skipped":[]};
-  var B = {"run":43284289431,"at":"2026-11-12T18:52:29.344Z"};
+  var D = {"included":[{"number":29,"author":"stirringdesert","title":"About page: new photo, sticky on the right on desktop, top-right on phones","when":"2026-11-12T18:41:25Z"},{"number":47,"author":"stirringdesert","title":"Тест превью 2 (ничего не меняет)","when":"2026-11-12T18:53:59Z"}],"skipped":[]};
+  var B = {"run":43284609866,"at":"2026-11-12T18:54:18.687Z"};
   var RUNS = 'https://api.github.com/repos/stirringdesert/hs/actions/workflows/preview.yml/runs?per_page=1';
   var n = D.included.length;
   function plural(k) { var a = k % 10, b = k % 100; return a === 1 && b !== 11 ? 'изменение' : a >= 2 && a <= 4 && (b < 12 || b > 14) ? 'изменения' : 'изменений'; }
