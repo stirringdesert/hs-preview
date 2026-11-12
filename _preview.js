@@ -1,5 +1,5 @@
 (function () {
-  var D = {"included":[{"number":29,"author":"stirringdesert","title":"About page: new photo, sticky on the right on desktop, top-right on phones","when":"2026-11-12T18:41:25Z"}],"skipped":[]}, B = {"run":43290659041,"at":"2026-11-12T19:29:32.863Z"}, LIVE = "https://harrysergeev.com";
+  var D = {"included":[{"number":29,"author":"stirringdesert","title":"About page: new photo, sticky on the right on desktop, top-right on phones","when":"2026-11-12T18:41:25Z"}],"skipped":[]}, B = {"run":43291838231,"at":"2026-11-12T19:36:33.926Z"}, LIVE = "https://harrysergeev.com";
 
   // All runs of both workflows in one request (public GitHub API, no login).
   var RUNS = 'https://api.github.com/repos/stirringdesert/hs/actions/runs?per_page=10';
@@ -37,7 +37,7 @@
     + (n ? list(D.included) : '')
     + (D.skipped.length ? '<p class="pv-muted">Пока не показано (конфликтует с другим изменением, исправляется):</p>' + list(D.skipped) : '')
     + '</div>'
-    + '<a class="pv-pill pv-live" href="' + esc(live) + '" title="Открыть эту страницу на сайте">сайт ↗</a>'
+    + '<a class="pv-pill pv-live" href="' + esc(live) + '" target="_blank" rel="noopener" title="Открыть эту страницу на сайте">сайт ↗</a>'
     + '<button type="button" class="pv-pill pv-btn" aria-expanded="false"><span class="pv-dot"></span><span class="pv-label"></span></button>';
   document.body.appendChild(tag);
   var btn = tag.querySelector('.pv-btn'), stateEl = tag.querySelector('.pv-state'), labelEl = tag.querySelector('.pv-label'), liveBtn = tag.querySelector('.pv-live');
