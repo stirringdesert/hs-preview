@@ -1,5 +1,5 @@
 (function () {
-  var D = {"included":[{"number":29,"author":"stirringdesert","title":"About page: new photo, sticky on the right on desktop, top-right on phones","when":"2026-11-12T18:41:25Z"}],"skipped":[]}, B = {"run":43289027269,"at":"2026-11-12T19:20:02.743Z"}, LIVE = "https://harrysergeev.com";
+  var D = {"included":[{"number":29,"author":"stirringdesert","title":"About page: new photo, sticky on the right on desktop, top-right on phones","when":"2026-11-12T18:41:25Z"}],"skipped":[]}, B = {"run":43289898002,"at":"2026-11-12T19:25:02.262Z"}, LIVE = "https://harrysergeev.com";
 
   // All runs of both workflows in one request (public GitHub API, no login).
   var RUNS = 'https://api.github.com/repos/stirringdesert/hs/actions/runs?per_page=10';
@@ -83,10 +83,18 @@
 
   function check() {
     if (document.hidden || Date.now() < pause) return;
-    fetch(RUNS, { cache: 'no-cache' }).then(function (r) {
-      if (r.status === 403 || r.status === 429) { pause = Date.now() + 300000; return null; }
+    var opts = { cache: 'no-cache' };
+    if (window.__pvApi) opts.headers = { Authorization: 'Bearer ' + window.__pvApi };
+    fetch(RUNS, opts).then(function (r) {
+      if (r.status === 401 && window.__pvApi) { window.__pvApi = null; return null; } // token expired: go on without it
+      if (r.status === 403 || r.status === 429) {
+        pause = Date.now() + 300000;
+        show('unknown', '<b>Статус на паузе.</b> GitHub ограничил число проверок, продолжу через 5 минут. ' + built, 'статус на паузе');
+        return false;
+      }
       return r.ok ? r.json() : null;
     }).then(function (j) {
+      if (j === false) return;
       var runs = (j && j.workflow_runs) || [];
       var pv = runs.filter(function (r) { return r.name === 'Update preview site'; })[0];
       var lv = runs.filter(function (r) { return r.name === 'Deploy to GitHub Pages'; })[0];
