@@ -1,6 +1,6 @@
 (function () {
-  var D = {"included":[{"number":29,"author":"stirringdesert","title":"About page: new photo, sticky on the right on desktop, top-right on phones","when":"2026-11-12T18:41:25Z"},{"number":45,"author":"stirringdesert","title":"Тест превью (ничего не меняет)","when":"2026-11-12T18:48:59Z"}],"skipped":[]};
-  var B = {"run":43283794979,"at":"2026-11-12T18:49:28.282Z"};
+  var D = {"included":[{"number":29,"author":"stirringdesert","title":"About page: new photo, sticky on the right on desktop, top-right on phones","when":"2026-11-12T18:41:25Z"}],"skipped":[]};
+  var B = {"run":43284184699,"at":"2026-11-12T18:51:48.318Z"};
   var RUNS = 'https://api.github.com/repos/stirringdesert/hs/actions/workflows/preview.yml/runs?per_page=1';
   var n = D.included.length;
   function plural(k) { var a = k % 10, b = k % 100; return a === 1 && b !== 11 ? 'изменение' : a >= 2 && a <= 4 && (b < 12 || b > 14) ? 'изменения' : 'изменений'; }
@@ -36,13 +36,20 @@
   btn.addEventListener('click', function () { var o = tag.classList.toggle('open'); btn.setAttribute('aria-expanded', o); });
 
   // Status: is a newer preview being built, or already built? Asks GitHub (public, no
-  // login) for the latest preview run: at most once a minute, only while the tab is visible.
+  // login) for the latest preview run every 15 s while the tab is visible. Requests are
+  // conditional ("no-cache" revalidates with the ETag), and an unchanged answer (304)
+  // doesn't count toward GitHub's limit of 60 requests an hour; if the limit is hit
+  // anyway, it waits a few minutes before asking again.
   var built = 'Эта версия собрана в ' + time(B.at) + '.';
   function show(s, text) { tag.setAttribute('data-s', s); stateEl.innerHTML = text; }
   show('unknown', built);
   function check() {
     if (document.hidden) return;
-    fetch(RUNS, { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
+    if (Date.now() < pause) return;
+    fetch(RUNS, { cache: 'no-cache' }).then(function (r) {
+      if (r.status === 403 || r.status === 429) { pause = Date.now() + 300000; return null; }
+      return r.ok ? r.json() : null;
+    }).then(function (j) {
       var run = j && j.workflow_runs && j.workflow_runs[0];
       if (!run) return show('unknown', built);
       if (run.status !== 'completed') return show('busy', '<b>Обновляется…</b> Новые изменения применяются, это занимает 2–3 минуты. ' + built);
@@ -51,7 +58,8 @@
       show('ok', '<b>Актуально.</b> ' + built);
     }).catch(function () { show('unknown', built); });
   }
+  var pause = 0;
   check();
-  setInterval(check, 60000);
+  setInterval(check, 15000);
   document.addEventListener('visibilitychange', function () { if (!document.hidden) check(); });
 })();
