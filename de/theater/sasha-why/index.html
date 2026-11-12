@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>preview</title>
+<style>html,body{margin:0;height:100%;background:#000;color:#f2f2f2;font:16px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+form{display:none;position:absolute;inset:0;margin:auto;width:min(280px,calc(100% - 32px));height:max-content}
+form.show{display:block}input,button{font:inherit;box-sizing:border-box;width:100%;padding:10px 12px;border-radius:8px;border:1px solid #333;background:#111;color:#fff;margin-top:8px}
+button{background:#f2f2f2;color:#000;border:0;cursor:pointer}.err{color:#ff8a8a;min-height:1.4em;font-size:14px}</style></head>
+<body><form id="f"><div>preview · password</div><input id="p" type="password" autocomplete="current-password" autofocus><button>open</button><div class="err" id="e"></div></form>
+<script>
+(function () {
+  var S = "oZZIKidc6hIm7LRnOxmqlg==", IV = "opK0w0ItFB2bCuy4", D = "T9HhZCzAPRrpVXdFSf4Q560EZas2nZb0EGklNovHknxCVh/hxXXdxCR3d34bLOhRTE6gGnjyfn50UwfN/V3iEMWRMhTQ8Rpf3biNQkhNfiKzCC9DXAjHPbA+SJX86T7+GFmzzD+9XLeyWlNWlrOYGLWmmUraIZNtMdMIqcVjS7beICLUhn7wB1Gaj0TZ9s32afjKyrem6nYChC1yMfCONpUEMtFYodUR5Mq4+y5OpDeJmWtXJX/dVe7adLTx8poDE5TeJZPoTntHsKpnv+PsppLDlswDb/azisaux9BUTGQxY0EGOI5vmOjGCBVcU6ndC0S3B3DhIFZWkb3c+Kgmd0+ToKObe6u9MsQVFegQw3zNbXoR3OrCxfnuQJhIoa0FIoFodtjir4yaUN32Wo9sMG7aJtSAJ1mXMLUzbnGMwHDn21IQMQI9vA1sr9dZZnXTxX7eh7Gaxt90/x2JRvp9I70fj91ARklHmGyYfQhnnlg2Xy9qqdWkguu++/B7Owx+zPRS3MY1SdY7a4KkmAh7woQjmbtG8tGhhSyHvEQ5FjbLA2a5jeD4sobSbFTt3E4coLBXuZoUa6F4HiDRPqouy/EMc1nv81giW6D4EqpplHZ+5F3wAdflw8p9VA3Hsu8Z4ILjWCMnThT+Fs0Jz+P0Rw5KxJfMtGfjziZ/MuCaCNsZxBUAw3JPcNPexYkgnV0U4DnvdL+lK4bMvlPZMsiljnof+25iZahDNyeiXzDg7tJF1xV4hsWx5sWZcKXsOzmnVwOf8BAcz5QNvWQZNZdIWY6syM80FEjeB/NISDAF4mbY26+CwWCTaloz37I0P55Ikpfb0xJuhPziTG/8ZU9mEeaHgHW3Tnb79dLOQyTsQ9lFuPBwYCMZuQtFeAYEsb103GebatvGM+Pfq9XP9OvtZoHvuWKGI1+t7FbHP0WWw7QiRZ/RIGesv72QAPwMjTq6t3Awbo0SYmgbKqKK8wotS1EaEeDFvTtpc6DSHI2B8z8flXKJzLI=", N = 150000;
+  function bytes(s) { return Uint8Array.from(atob(s), function (c) { return c.charCodeAt(0); }); }
+  function open(pw) {
+    var enc = new TextEncoder();
+    return crypto.subtle.importKey('raw', enc.encode(pw), 'PBKDF2', false, ['deriveKey'])
+      .then(function (k) { return crypto.subtle.deriveKey({ name: 'PBKDF2', salt: bytes(S), iterations: N, hash: 'SHA-256' }, k, { name: 'AES-GCM', length: 256 }, false, ['decrypt']); })
+      .then(function (k) { return crypto.subtle.decrypt({ name: 'AES-GCM', iv: bytes(IV) }, k, bytes(D)); })
+      .then(function (buf) {
+        try { localStorage.setItem('preview-pw', pw); } catch (e) {}
+        var html = new TextDecoder().decode(buf);
+        document.open(); document.write(html); document.close();
+      });
+  }
+  var f = document.getElementById('f');
+  function ask(msg) { document.getElementById('e').textContent = msg || ''; f.className = 'show'; document.getElementById('p').focus(); }
+  f.onsubmit = function (ev) { ev.preventDefault(); open(document.getElementById('p').value).catch(function () { ask('wrong password'); }); };
+  var saved = null; try { saved = localStorage.getItem('preview-pw'); } catch (e) {}
+  if (saved) open(saved).catch(function () { ask(); }); else ask();
+})();
+</script></body></html>
