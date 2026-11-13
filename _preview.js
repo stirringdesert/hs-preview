@@ -1,5 +1,5 @@
 (function () {
-  var D = {"included":[{"number":29,"author":"stirringdesert","title":"About page: new photo, sticky on the right on desktop, top-right on phones","when":"2026-11-12T18:41:25Z"}],"skipped":[]}, B = {"run":43389004426,"at":"2026-11-13T07:53:49.376Z"}, LIVE = "https://harrysergeev.com";
+  var D = {"included":[{"number":29,"author":"stirringdesert","title":"About page: new photo, sticky on the right on desktop, top-right on phones","when":"2026-11-12T18:41:25Z"}],"skipped":[]}, B = {"run":43389275612,"at":"2026-11-13T07:56:02.786Z"}, LIVE = "https://harrysergeev.com";
 
   // All runs of both workflows in one request (public GitHub API, no login).
   var RUNS = 'https://api.github.com/repos/stirringdesert/hs/actions/runs?per_page=10';
